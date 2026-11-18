@@ -60,5 +60,24 @@
       "$_SESSION"
     ],
     "explanation": "로그인 세션만 확인하고 요청이 사용자의 의도인지 검증하지 않아, 다른 사이트의 폼으로 송금이 실행될 수 있다. 세션에 묶인 예측 불가능한 토큰을 요청마다 검증한다."
+  },
+  {
+    "id": "p04",
+    "file": "problems/p04.py",
+    "lines": [
+      16,
+      17
+    ],
+    "weakness": "인가되지 않은 파일 업로드",
+    "type": "입력데이터 검증 및 표현",
+    "design": "업로드·다운로드 파일 검증",
+    "pattern": "\\.save\\(.*filename",
+    "fix": "ext = f.filename.rsplit('.', 1)[-1].lower()\nif ext not in ALLOWED_EXTENSIONS: return 'bad type', 400\nsave_path = os.path.join(UPLOAD_DIR, uuid.uuid4().hex + '.' + ext)\nf.save(save_path)",
+    "fix_keywords": [
+      "ALLOWED_EXTENSIONS",
+      "uuid",
+      "not in"
+    ],
+    "explanation": "파일 확장자·형식을 검증하지 않고 사용자 파일명 그대로 웹 경로에 저장해 실행 가능한 파일이 업로드될 수 있다. 허용 확장자 화이트리스트로 검사하고 저장 이름은 서버가 생성한다."
   }
 ]
