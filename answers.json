@@ -99,5 +99,23 @@
       "잠금|lock"
     ],
     "explanation": "인증 실패 횟수를 제한하지 않아 비밀번호 무차별 대입이 가능하다. 실패 횟수를 세어 임계치를 넘으면 계정·접속을 일정 시간 잠근다."
+  },
+  {
+    "id": "p06",
+    "file": "problems/p06.php",
+    "lines": [
+      15,
+      16
+    ],
+    "weakness": "비밀번호 평문 기록",
+    "type": "보안기능",
+    "design": "비밀번호 관리",
+    "pattern": "password=\\$password",
+    "fix": "$entry = date('c') . \" register username=$username\\n\";\nfile_put_contents($logFile, $entry, FILE_APPEND);",
+    "fix_keywords": [
+      "register username=$username",
+      "file_put_contents"
+    ],
+    "explanation": "해시로 저장한 비밀번호를 감사 로그에는 평문으로 남긴다. 로그에 비밀번호를 기록하지 않는다."
   }
 ]
