@@ -42,5 +42,23 @@
       "UTF-8"
     ],
     "explanation": "저장된 사용자 입력을 인코딩 없이 HTML 에 출력해 스크립트가 그대로 실행된다. 출력 시 HTML 특수문자를 인코딩한다."
+  },
+  {
+    "id": "p03",
+    "file": "problems/p03.php",
+    "lines": [
+      15
+    ],
+    "weakness": "크로스사이트 요청 위조(CSRF)",
+    "type": "입력데이터 검증 및 표현",
+    "design": "웹 기반 중요기능 수행 요청 검증",
+    "pattern": "\\$_POST\\[.*\\].*(?!.*csrf)",
+    "fix": "if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) { http_response_code(403); exit; }",
+    "fix_keywords": [
+      "csrf_token",
+      "hash_equals",
+      "$_SESSION"
+    ],
+    "explanation": "로그인 세션만 확인하고 요청이 사용자의 의도인지 검증하지 않아, 다른 사이트의 폼으로 송금이 실행될 수 있다. 세션에 묶인 예측 불가능한 토큰을 요청마다 검증한다."
   }
 ]
