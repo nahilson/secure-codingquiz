@@ -117,5 +117,23 @@
       "file_put_contents"
     ],
     "explanation": "해시로 저장한 비밀번호를 감사 로그에는 평문으로 남긴다. 로그에 비밀번호를 기록하지 않는다."
+  },
+  {
+    "id": "p08",
+    "file": "problems/p08.py",
+    "lines": [
+      6
+    ],
+    "weakness": "하드코딩된 암호화 키",
+    "type": "보안기능",
+    "design": "암호화 키 관리",
+    "pattern": "KEY\\s*=\\s*b?[\"']",
+    "fix": "PAYMENT_KEY = os.environ[\"PAYMENT_KEY\"].encode()",
+    "fix_keywords": [
+      "os.environ",
+      "PAYMENT_KEY",
+      "encode"
+    ],
+    "explanation": "AES 키가 소스코드 상수라 코드가 노출되면 키도 노출된다. 입력값과 무관한 보안기능 약점이며, 키는 소스코드 밖(환경변수·키 관리 시스템)에서 관리한다."
   }
 ]
