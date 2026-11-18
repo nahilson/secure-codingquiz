@@ -190,5 +190,26 @@
       "오류가 발생"
     ],
     "explanation": "스택트레이스와 예외 메시지를 응답에 담아 내부 경로·질의 정보가 노출된다. 상세 내용은 서버 로그에만 남기고 사용자에게는 일반화된 메시지를 준다."
+  },
+  {
+    "id": "p14",
+    "file": "problems/p14.py",
+    "lines": [
+      5,
+      6,
+      18,
+      19
+    ],
+    "weakness": "잘못된 세션에 의한 정보 노출",
+    "type": "캡슐화",
+    "design": "세션통제",
+    "pattern": "^current_",
+    "fix": "from flask import session\nsession[\"user\"] = request.form[\"username\"]\nreturn jsonify({\"user\": session.get(\"user\"), \"items\": load_cart(session.get(\"user\"))})",
+    "fix_keywords": [
+      "session",
+      "session.get",
+      "load_cart"
+    ],
+    "explanation": "사용자별 데이터를 모듈 전역 변수에 두어 동시 요청 사이에 공유된다. 한 사용자의 장바구니가 다른 사용자에게 보일 수 있으므로 요청별 세션에 저장한다."
   }
 ]
