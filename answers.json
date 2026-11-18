@@ -172,5 +172,23 @@
       "$key"
     ],
     "explanation": "주민등록번호를 암호화하지 않고 DB 에 저장한다. 중요정보는 저장 전에 안전한 알고리즘으로 암호화한다."
+  },
+  {
+    "id": "p13",
+    "file": "problems/p13.py",
+    "lines": [
+      19
+    ],
+    "weakness": "오류 메시지를 통한 정보 노출",
+    "type": "에러처리",
+    "design": "예외처리",
+    "pattern": "format_exc\\(\\)",
+    "fix": "app.logger.exception(\"member lookup failed\")\nreturn jsonify({\"error\": \"처리 중 오류가 발생했습니다\"}), 500",
+    "fix_keywords": [
+      "logger",
+      "500",
+      "오류가 발생"
+    ],
+    "explanation": "스택트레이스와 예외 메시지를 응답에 담아 내부 경로·질의 정보가 노출된다. 상세 내용은 서버 로그에만 남기고 사용자에게는 일반화된 메시지를 준다."
   }
 ]
