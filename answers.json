@@ -135,5 +135,24 @@
       "encode"
     ],
     "explanation": "AES 키가 소스코드 상수라 코드가 노출되면 키도 노출된다. 입력값과 무관한 보안기능 약점이며, 키는 소스코드 밖(환경변수·키 관리 시스템)에서 관리한다."
+  },
+  {
+    "id": "p09",
+    "file": "problems/p09.py",
+    "lines": [
+      12,
+      18
+    ],
+    "weakness": "취약한 암호 알고리즘",
+    "type": "보안기능",
+    "design": "암호연산",
+    "pattern": "DES\\.new",
+    "fix": "cipher = AES.new(load_key(), AES.MODE_GCM, nonce=nonce)",
+    "fix_keywords": [
+      "AES.new",
+      "MODE_GCM",
+      "nonce"
+    ],
+    "explanation": "56비트 키의 DES 와 ECB 모드는 안전하지 않다. SEED·ARIA·AES 같은 안전한 알고리즘과 인증 모드를 쓴다."
   }
 ]
